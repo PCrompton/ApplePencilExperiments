@@ -26,6 +26,14 @@ class CanvasView: UIView {
             setNeedsDisplay()
         }
     }
+    
+    var isFingerDrawingEnabled = false {
+        didSet {
+            needsFullRedraw = true
+            setNeedsDisplay()
+        }
+    }
+    
     var needsFullRedraw = true
     
     /// Array containing all line objects that need to be drawn in `drawRect(_:)`.
@@ -123,6 +131,10 @@ class CanvasView: UIView {
     
     func drawTouches(touches: Set<UITouch>, withEvent event: UIEvent?) {
         var updateRect = CGRect.null
+        
+        if touches.first?.type != .Stylus && !self.isFingerDrawingEnabled {
+            return
+        }
         
         for touch in touches {
             // Retrieve a line from `activeLines`. If no line exists, create one.

@@ -34,6 +34,7 @@ class ViewController: UIViewController {
     // MARK: Touch Handling
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
         canvasView.drawTouches(touches, withEvent: event)
         
         if visualizeAzimuth {
@@ -110,6 +111,10 @@ class ViewController: UIViewController {
         sender.selected = canvasView.usePreciseLocations
     }
     
+    @IBAction func toggleAllowFingerDrawing(sender: UIButton) {
+        canvasView.isFingerDrawingEnabled = !canvasView.isFingerDrawingEnabled
+        sender.selected = canvasView.isFingerDrawingEnabled
+    }
     // MARK: Rotation
     
     override func shouldAutorotate() -> Bool {
